@@ -20,3 +20,26 @@ spec:
   policy:
     semver:
       range: x.x.x
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImageRepository
+metadata:
+  name: app
+  namespace: flux-system
+spec:
+  secretRef:
+    name: aws-ecr-auth
+  image: 724605596975.dkr.ecr.us-east-1.amazonaws.com/app
+  interval: 1m0s
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta1
+kind: ImagePolicy
+metadata:
+  name: app
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: app
+  policy:
+    semver:
+      range: x.x.x

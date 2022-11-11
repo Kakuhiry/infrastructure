@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: 724605596975.dkr.ecr.us-east-1.amazonaws.com/app:0.1.0
+        image: 724605596975.dkr.ecr.us-east-1.amazonaws.com/app:0.1.0 # {"$imagepolicy": "flux-system:app"}
         imagePullPolicy: Always
         ports:
         - name: app
