@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: backend-dev
+  labels:
+    app: myapp-redis
+spec:
+  selector:
+    matchLabels:
+      app: myapp-redis
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        args: ["redis-server"]
+        ports:
+        - containerPort: 6379
+      volumes:
+      - name: data
+        emptyDir: {}
+      - name: config
+        configMap:
+          name: redis-config
+          items:
+          - key: redis-config
+            path: ~/redis.conf
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: backend-dev
+spec:
+  selector:
+    app: myapp-redis
+  ports:
+  - port: 6379
+    targetPort: 6379

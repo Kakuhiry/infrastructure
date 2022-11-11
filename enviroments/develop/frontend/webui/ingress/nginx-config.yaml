@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: frontend-dev
+data:
+  nginx.conf: |
+    events {}
+      http {
+        server {
+        listen 80;
+        server_name _;
+        location / {
+          root   /usr/share/nginx/html;
+          try_files $uri $uri/ /index.html;
+          index  index.html index.htm;
+        }
+        location = /50x.html {
+          root   /usr/share/nginx/html;
+        }
+        error_page   500 502 503 504  /50x.html;
+      }
+    }

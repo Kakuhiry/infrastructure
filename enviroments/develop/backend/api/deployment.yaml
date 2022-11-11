@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  namespace: backend-dev
+  labels:
+    app: app
+spec:
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: 724605596975.dkr.ecr.us-east-1.amazonaws.com/app:0.1.0
+        imagePullPolicy: Always
+        ports:
+        - name: app
+          containerPort: 5000
+        env:
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: api-secret
+              key: DATABASE_HOST
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: api-secret
+              key: DATABASE_NAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: api-secret
+              key: DATABASE_PASSWORD
+        - name: DATABASE_PORT
+          valueFrom:
+            secretKeyRef:
+              name: api-secret
+              key: DATABASE_PORT
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: api-secret
+              key: DATABASE_USERNAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: backend-dev
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: app
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: app
+#   namespace: backend-dev
+# spec:
+#   ports:
+#   - port: 80
+#     targetPort: 5000
+#   selector:
+#     app: app
