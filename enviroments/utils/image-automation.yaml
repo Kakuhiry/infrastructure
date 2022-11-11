@@ -4,6 +4,8 @@ metadata:
   name: web
   namespace: flux-system
 spec:
+  secretRef:
+    name: aws-ecr-auth
   image: 724605596975.dkr.ecr.us-east-1.amazonaws.com/web
   interval: 1m0s
 ---
