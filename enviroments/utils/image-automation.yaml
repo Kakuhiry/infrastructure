@@ -3,6 +3,7 @@ kind: ImageRepository
 namespace: flux-system
 metadata:
   name: web
+  namespace: flux-system
 spec:
   secretRef:
     name: aws-ecr-auth
