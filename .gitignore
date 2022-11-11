@@ -2,5 +2,4 @@ terraform/.terraform
 terraform.*
 **/frontend/node_modules
 **/encrypt.sh
-**/registry-auth.yaml
 **/.sops.yaml

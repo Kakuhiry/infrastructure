@@ -56,19 +56,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 5000
+  - name: app
+    port: 80
     targetPort: 5000
   selector:
     app: app
-
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: app
-#   namespace: backend-dev
-# spec:
-#   ports:
-#   - port: 80
-#     targetPort: 5000
-#   selector:
-#     app: app
